@@ -1,11 +1,16 @@
 import slides from '@/data/slides'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useRef, useState } from 'react'
 import { Animated, FlatList, View, ViewToken } from 'react-native'
 import NextButton from './nextButton'
 import OnboardingItem from './onboardingItem'
 import Paginator from './paginator'
 
-const Onboarding = () => {
+interface Props {
+    setViewedOnboarding: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const Onboarding = ({setViewedOnboarding}: Props) => {
     const [currentIndex, setCurrentIndex] = useState<number | null>(0);
     const sildesRef = useRef<FlatList<any> | null>(null);
     const scrollX = useRef(new Animated.Value(0)).current;
@@ -18,11 +23,18 @@ const Onboarding = () => {
 
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
-    const scrollTo = () => {
+    const scrollTo = async () => {
         if (currentIndex != null && currentIndex < slides.length - 1) {
             sildesRef.current?.scrollToIndex({ index: currentIndex + 1, animated: true })
         } else {
-            console.log('fin')
+            
+            try {
+                await AsyncStorage.setItem("@viewedOnboarding", "true");
+                setViewedOnboarding(true);
+            } catch (error) {
+                console.log("Error @setItem ", error);
+            }
+
         }        
     }
 
