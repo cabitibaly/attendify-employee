@@ -1,16 +1,9 @@
+import Loading from "@/components/loading/loading";
 import Onboarding from "@/components/onboarding/onboarding";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, ImageBackground, View } from "react-native";
-
-const Loading = () => {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <ActivityIndicator size="large" color="#fff" />
-    </View>
-  )
-}
+import { ImageBackground } from "react-native";
 
 export default function Index() {
   const [loading, setLoading] = useState<boolean>(true);

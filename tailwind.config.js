@@ -5,6 +5,26 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      fontFamily: {
+        black: ["Poppins-Black"],
+        blackItalic: ["Poppins-BlackItalic"],
+        bold: ["Poppins-Bold"],
+        boldItalic: ["Poppins-BoldItalic"],
+        extraBold: ["Poppins-ExtraBold"],
+        extraBoldItalic: ["Poppins-ExtraBoldItalic"],
+        extraLight: ["Poppins-ExtraLight"],
+        extraLightItalic: ["Poppins-ExtraLightItalic"],
+        italic: ["Poppins-Italic"],
+        light: ["Poppins-Light"],
+        lightItalic: ["Poppins-LightItalic"],
+        medium: ["Poppins-Medium"],
+        mediumItalic: ["Poppins-MediumItalic"],
+        regular: ["Poppins-Regular"],
+        semibold: ["Poppins-Semibold"],
+        semiboldItalic: ["Poppins-SemiboldItalic"],
+        thin: ["Poppins-Thin"],
+        thinItalic: ["Poppins-ThinItalic"],
+      },
       colors: {
         "turquoise-1": "#081313",
         "turquoise-2": "#0D1B1B",
