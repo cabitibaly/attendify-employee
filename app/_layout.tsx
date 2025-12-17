@@ -40,26 +40,9 @@ export default function RootLayout() {
     return (
         <Stack>
             <Stack.Screen name="index" options={{headerShown: false}} />
-            <Stack.Screen 
-                name="condition-generale/index" 
-                options={{
-                    headerShown: false,
-                    title: "Politique de confidentialité",
-                    headerTransparent: true,
-                    headerTitleAlign: "left",
-                    headerTintColor: "#fff",
-                    headerTitleStyle:{
-                        fontWeight: "bold",
-                        fontSize: 27
-                    }
-                }} 
-            />
-            <Stack.Screen 
-                name="connexion/index" 
-                options={{
-                    headerShown: false,
-                }} 
-            />
+            <Stack.Screen name="condition-generale" options={{headerShown: false}} />
+            <Stack.Screen name="(auth)" options={{headerShown: false}} />
+            <Stack.Screen name="(tabs)" options={{headerShown: false}} />
         </Stack>
     );
 }
