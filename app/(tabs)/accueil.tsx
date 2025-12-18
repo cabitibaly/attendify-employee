@@ -1,4 +1,7 @@
 import HandPointerIcon from '@/components/svg/handPointing';
+import LoginIcon from '@/components/svg/loginIcon';
+import LogoutIcon from '@/components/svg/logoutIcon';
+import MapPin from '@/components/svg/mapPin';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
@@ -19,7 +22,7 @@ const Accueil = () => {
                     <Image className='size-full' source={require("../../assets/images/Dear-Santa.jpeg")} />
                 </View>
             </View>
-            <View className='w-full flex-col items-center justify-center'>
+            <View className='w-full flex-col items-center justify-center gap-6'>
                 <View style={styles.shadowWrapper}>
                     <LinearGradient
                         colors={['#003B3C', '#006A6B']}
@@ -28,6 +31,30 @@ const Accueil = () => {
                         <HandPointerIcon size={96} />
                         <Text className='text-3xl text-white font-medium'>Arrivée</Text>
                     </LinearGradient>
+                </View>
+                <View className='flex-row gap-1.5 items-center justify-center'>
+                    <MapPin  />
+                    <Text className='text-base text-white font-regular'>Vous êtes dans la zone</Text>
+                </View>
+                <View className='w-full flex-row items-center justify-center gap-4'>
+                    <View className='bg-turquoise-5/30 p-3 rounded-xl flex-1 flex-col items-center justify-center gap-2'>
+                        <View className='w-full flex-row items-center justify-between'>
+                            <Text className='text-base text-white font-regular'>Arrivée</Text>
+                            <LogoutIcon color='#30CFD0' size={20} />
+                        </View>
+                        <Text className='text-xl text-white font-medium'>08:00</Text>
+                    </View>
+                    <View className='bg-turquoise-5/30 p-3 rounded-xl flex-1 flex-col items-center justify-center gap-2'>
+                        <View className='w-full flex-row items-center justify-between'>
+                            <Text className='text-base text-white font-regular'>Départ</Text>
+                            <LoginIcon color='#30CFD0' size={20} />
+                        </View>
+                        <Text className='text-xl text-white font-medium'>16:00</Text>
+                    </View>
+                    <View className='bg-turquoise-5/30 p-[10px] rounded-xl flex-1 flex-col items-center justify-center gap-2'>
+                        <Text className='text-base text-center text-white font-regular'>Durée totale</Text>
+                        <Text className='text-xl text-white font-medium'>08:00</Text>
+                    </View>
                 </View>
             </View>
         </ImageBackground>
