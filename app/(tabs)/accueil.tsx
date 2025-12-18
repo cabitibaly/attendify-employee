@@ -1,12 +1,15 @@
+import PointageModal from '@/components/modals/pointageModal';
 import HandPointerIcon from '@/components/svg/handPointing';
 import LoginIcon from '@/components/svg/loginIcon';
 import LogoutIcon from '@/components/svg/logoutIcon';
 import MapPin from '@/components/svg/mapPin';
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Accueil = () => {
+    const [modalVisible, setModalVisible] = useState<boolean>(false)
+
     return (
         <ImageBackground
             source={require("../../assets/images/main-background.jpg")}
@@ -23,7 +26,7 @@ const Accueil = () => {
                 </View>
             </View>
             <View className='w-full flex-col items-center justify-center gap-6'>
-                <View style={styles.shadowWrapper}>
+                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} activeOpacity={0.8} style={styles.shadowWrapper}>
                     <LinearGradient
                         colors={['#003B3C', '#006A6B']}
                         style={styles.gradient}                    
@@ -31,7 +34,7 @@ const Accueil = () => {
                         <HandPointerIcon size={96} />
                         <Text className='text-3xl text-white font-medium'>Arrivée</Text>
                     </LinearGradient>
-                </View>
+                </TouchableOpacity>
                 <View className='flex-row gap-1.5 items-center justify-center'>
                     <MapPin  />
                     <Text className='text-base text-white font-regular'>Vous êtes dans la zone</Text>
@@ -57,6 +60,10 @@ const Accueil = () => {
                     </View>
                 </View>
             </View>
+            <PointageModal 
+                visible={modalVisible} 
+                onClose={() => setModalVisible(false)} 
+            />
         </ImageBackground>
     )
 }
