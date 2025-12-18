@@ -41,7 +41,7 @@ export default function Index() {
     <ImageBackground
       source={require("../assets/images/splash-bg.jpg")}
       resizeMode="cover"
-      className="flex-1 bg-turquoise-4"
+      className="flex-1"
     >
       {loading ? <Loading /> : viewedOnbording ? "" : <Onboarding setViewedOnboarding={setViewedOnboarding} />}
     </ImageBackground>

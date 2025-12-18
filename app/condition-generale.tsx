@@ -47,7 +47,7 @@ const Index = () => {
     useEffect(() => {       
 
         if(!loading && accepterCondidions) {
-            router.replace("/connexion")      
+            router.replace("/(auth)/connexion")      
         }
 
     }, [accepterCondidions, loading])
@@ -59,7 +59,7 @@ const Index = () => {
                 :
                     <>
                         <ImageBackground
-                            source={require("../../assets/images/splash-bg.jpg")}
+                            source={require("../assets/images/splash-bg.jpg")}
                             resizeMode="cover"
                             className="flex-1"
                         >
