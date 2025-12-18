@@ -12,25 +12,40 @@ const TabLayout = () => {
         >            
             <Tabs  
                 tabBar={(props) => <CustomNavBar {...props} />}
-                screenOptions={{
-                    headerShown: false,
+                screenOptions={{                    
                     tabBarStyle: { backgroundColor: 'transparent' },
                 }}
             >
                 <Tabs.Screen 
                     name="accueil" 
                     options={{
+                        headerShown: false,
                         title: "Accueil",
                         tabBarShowLabel: false,                    
                     }} 
                 />
                 <Tabs.Screen 
-                    name="historique"
-                    options={{title: "Historique"}} 
+                    name="historique"                    
+                    options={{
+                        headerShown: true,
+                        title: "Historique",
+                        tabBarStyle: { backgroundColor: 'transparent' },
+                        headerStyle: { backgroundColor: 'transparent' },
+                        headerTransparent: true,
+                        headerTitleStyle: { 
+                            color: '#EEEEF0', 
+                            fontSize: 28, 
+                            fontWeight: "semibold" 
+                        },
+                        headerTitleAlign: "center",
+                    }} 
                 />
                 <Tabs.Screen 
                     name="profile"
-                    options={{title: "Profile"}} 
+                    options={{
+                        headerShown: false,
+                        title: "Profile"
+                    }} 
                 />
             </Tabs>            
         </ImageBackground>
