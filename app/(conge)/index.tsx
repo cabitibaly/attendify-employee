@@ -1,5 +1,6 @@
 import CongeCard from '@/components/cards/congeCard'
 import { FilterIcon } from '@/components/svg/filterIcon'
+import { router } from 'expo-router'
 import React from 'react'
 import { ImageBackground, Pressable, Text, TouchableOpacity, View } from 'react-native'
 
@@ -38,7 +39,7 @@ const Index = () => {
                     status='Approuvé'
                 />
             </View>
-            <TouchableOpacity activeOpacity={0.8} className='absolute bottom-10 left-4 px-4 py-5 w-full rounded-full bg-turquoise-8/70 items-center justify-center'>
+            <TouchableOpacity onPress={() => router.push("/(conge)/nouveau-conge")} activeOpacity={0.8} className='absolute bottom-10 left-4 px-4 py-5 w-full rounded-full bg-turquoise-8/70 items-center justify-center'>
                 <Text className='text-xl text-gris-12 font-medium'>Nouvelle demande</Text>    
             </TouchableOpacity>               
         </ImageBackground>

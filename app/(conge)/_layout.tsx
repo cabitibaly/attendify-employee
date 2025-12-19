@@ -33,6 +33,10 @@ const Congelayout = () => {
                     name="index"
                     options={{title: "Congés"}}                 
                 />
+                <Stack.Screen 
+                    name="nouveau-conge"
+                    options={{title: "Nouveau congé"}}                 
+                />
             </Stack>
         </ImageBackground>
     )
