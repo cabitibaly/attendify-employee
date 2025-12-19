@@ -38,11 +38,12 @@ export default function RootLayout() {
     }
 
     return (
-        <Stack>
-            <Stack.Screen name="index" options={{headerShown: false}} />
-            <Stack.Screen name="condition-generale" options={{headerShown: false}} />
-            <Stack.Screen name="(auth)" options={{headerShown: false}} />
-            <Stack.Screen name="(tabs)" options={{headerShown: false}} />
+        <Stack screenOptions={{headerShown: false}}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="condition-generale" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(conge)" />
         </Stack>
     );
 }
