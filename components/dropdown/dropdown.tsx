@@ -67,7 +67,8 @@ const Dropdown = ({type, setType}: DropdownProps) => {
                     <ScrollView 
                         className="absolute top-16 left-0 bg-turquoise-5 rounded-xl px-2 z-50 w-full h-48 gap-1"
                         horizontal={false}
-                        style={{paddingBottom: 8}}                    
+                        style={{paddingBottom: 8}}   
+                        nestedScrollEnabled={true}                 
                     >
                         {
                             typeConge.map((typeC, index) => (
