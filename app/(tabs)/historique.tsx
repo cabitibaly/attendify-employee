@@ -1,31 +1,7 @@
 import PointageCard from '@/components/cards/pointageCard';
-import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+import CustomCalendar from '@/components/datepicker/customCalendar';
 import React, { useState } from 'react';
-import { ImageBackground, View } from 'react-native';
-import { Calendar, LocaleConfig } from "react-native-calendars";
-
-LocaleConfig.locales['fr'] = {
-    monthNames: [
-        'Janvier',
-        'Février',
-        'Mars',
-        'Avril',
-        'Mai',
-        'Juin',
-        'Juillet',
-        'Août',
-        'Septembre',
-        'Octobre',
-        'Novembre',
-        'Décembre'
-    ],
-    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-    dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-    today: "Aujourd'hui"
-};
-
-LocaleConfig.defaultLocale = 'fr';
+import { ImageBackground } from 'react-native';
 
 const Historique = () => {
     const [selected, setSelected] = useState<string>(''); 
@@ -36,49 +12,7 @@ const Historique = () => {
             resizeMode="cover"
             className="px-4 py-4 pt-28 flex-1 gap-4"
         >
-            <View className='w-full'>
-                <Calendar
-                    onDayPress={day => {
-                        setSelected(day.dateString);
-                    }}
-                    markedDates={{
-                        [selected]: {
-                            selected: true, 
-                            disableTouchEvent: true,
-                            selectedColor: "#008384"                            
-                        }
-                    }}
-                    style={{
-                        backgroundColor: "rgba(0, 72, 73, 0.4)",  
-                        borderRadius: 12,
-                    }}
-                    theme={{                        
-                        backgroundColor: "transparent",
-                        calendarBackground: "transparent",
-                        textSectionTitleColor: "#EEEEF0",
-                        todayTextColor: '#30CFD0',
-                        textDisabledColor: '#5F606A',
-                        monthTextColor: '#EEEEF0',
-                        dayTextColor: '#EEEEF0',
-                        textDayFontWeight: "medium",
-                        textMonthFontWeight: "medium",                        
-                    }}
-                    renderArrow={(direction) => (
-                        direction === "left" ? 
-                            (
-                                <View className='size-6 bg-turquoise-8 rounded-full items-center justify-center'>
-                                    <ChevronLeft strokeWidth={1.5} size={20} color="#EEEEF0" />
-                                </View>
-                            )
-                        :
-                            (
-                                <View className='size-6 bg-turquoise-8 rounded-full items-center justify-center'>
-                                    <ChevronRight strokeWidth={1.5} size={20} color="#EEEEF0" />
-                                </View>
-                            )  
-                    )}
-                />
-            </View>
+            <CustomCalendar selectedDate={selected} setSelectedDate={setSelected} />
             <PointageCard />
             <PointageCard />
         </ImageBackground>

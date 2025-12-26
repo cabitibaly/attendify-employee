@@ -1,6 +1,8 @@
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -38,11 +40,16 @@ export default function RootLayout() {
     }
 
     return (
-        <Stack>
-            <Stack.Screen name="index" options={{headerShown: false}} />
-            <Stack.Screen name="condition-generale" options={{headerShown: false}} />
-            <Stack.Screen name="(auth)" options={{headerShown: false}} />
-            <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-        </Stack>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheetModalProvider>
+                <Stack screenOptions={{headerShown: false}}>
+                    <Stack.Screen name="index" />
+                    <Stack.Screen name="condition-generale" />
+                    <Stack.Screen name="(auth)" />
+                    <Stack.Screen name="(tabs)" />
+                    <Stack.Screen name="(conge)" />
+                </Stack>
+            </BottomSheetModalProvider>
+        </GestureHandlerRootView>
     );
 }
