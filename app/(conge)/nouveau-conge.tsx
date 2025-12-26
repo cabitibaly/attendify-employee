@@ -13,7 +13,7 @@ const NouveauConge = () => {
     const [pieceJointe, setPieceJointe] = useState<DocumentPicker.DocumentPickerAsset | null>(null);
 
     return (
-         <ImageBackground
+        <ImageBackground
             source={require("../../assets/images/main-background.jpg")}
             resizeMode="cover"
             className="pb-4 pt-28 w-full h-full gap-4 flex-1 items-center justify-center"
