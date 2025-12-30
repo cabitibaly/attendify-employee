@@ -5,17 +5,13 @@ import LogoutIcon from '@/components/svg/logoutIcon';
 import MapPin from '@/components/svg/mapPin';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Accueil = () => {
     const [modalVisible, setModalVisible] = useState<boolean>(false)
 
     return (
-        <ImageBackground
-            source={require("../../assets/images/main-background.jpg")}
-            resizeMode="cover"
-            className="px-4 py-4 flex-1 items-center justify-center"
-        >
+        <View className="px-4 py-4 flex-1 items-center justify-center" >
             <View className='w-full absolute top-16 flex-row items-center justify-between'>
                 <View className='flex-col items-start justify-start'>
                     <Text className='text-3xl text-gris-12 font-medium'>Bonjour,</Text>
@@ -64,7 +60,7 @@ const Accueil = () => {
                 visible={modalVisible} 
                 onClose={() => setModalVisible(false)} 
             />
-        </ImageBackground>
+        </View>
     )
 }
 

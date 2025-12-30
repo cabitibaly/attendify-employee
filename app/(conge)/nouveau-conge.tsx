@@ -18,7 +18,11 @@ const NouveauConge = () => {
             resizeMode="cover"
             className="pb-4 pt-28 w-full h-full gap-4 flex-1 items-center justify-center"
         >
-            <ScrollView contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 40}} className='w-full flex-1 rounded-xl' showsVerticalScrollIndicator={false}>
+            <ScrollView 
+                contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 40}} className='w-full flex-1 rounded-xl' 
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+            >
                 <View className='mb-6 w-full flex-col items-start justify-start gap-2'>
                     <Text className='text-xl text-gris-11 font-medium'>Date de départ</Text>
                     <DatePicker setSelectedDate={setDateDepart} selectedDate={dateDepart} />

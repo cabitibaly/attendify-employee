@@ -13,7 +13,7 @@ const TabLayout = () => {
             <Tabs  
                 tabBar={(props) => <CustomNavBar {...props} />}
                 screenOptions={{                    
-                    tabBarStyle: { backgroundColor: 'transparent' },
+                    sceneStyle: { backgroundColor: 'transparent' },
                 }}
             >
                 <Tabs.Screen 

@@ -8,18 +8,14 @@ import { LogoutIcon2 } from '@/components/svg/logoutIcon2'
 import { PasswordIcon } from '@/components/svg/passwordIcon'
 import { router } from 'expo-router'
 import React, { useRef } from 'react'
-import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 
 const Profile = () => {
     const editBottomSheetRef = useRef<CustomBottomSheetRef>(null);
     const pwdBottomSheetRef = useRef<CustomBottomSheetRef>(null);
 
     return (
-        <ImageBackground
-            source={require("../../assets/images/main-background.jpg")}
-            resizeMode="cover"
-            className="pb-4 flex-1 items-center justify-start bg-turquoise-4 gap-4"
-        >
+        <View className="pb-4 flex-1 items-center justify-start gap-4">
             <View className='bg-turquoise-5/30 p-4 rounded-[48px] w-full h-2/5 items-center justify-center gap-3'>
                 <TouchableOpacity onPress={() => {editBottomSheetRef.current?.open()}} activeOpacity={0.8} className='absolute top-12 right-4 size-10 rounded-full bg-turquoise-9/30 items-center justify-center'>
                     <EditIcon size={20} color='#30CFD0' />
@@ -66,7 +62,7 @@ const Profile = () => {
             >
                 <ModifierSonMP />
             </CustomBottomSheet>
-        </ImageBackground>
+        </View>
     )
 }
 
