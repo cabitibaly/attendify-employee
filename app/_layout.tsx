@@ -1,9 +1,15 @@
+import toastConfig from "@/configs/toastConfig";
+import AuthProvider from "@/context/authContext/authProvider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Toast from "react-native-toast-message";
 import "../global.css";
+
+const client = new QueryClient()
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,16 +46,26 @@ export default function RootLayout() {
     }
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheetModalProvider>
-                <Stack screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="index" />
-                    <Stack.Screen name="condition-generale" />
-                    <Stack.Screen name="(auth)" />
-                    <Stack.Screen name="(tabs)" />
-                    <Stack.Screen name="(conge)" />
-                </Stack>
-            </BottomSheetModalProvider>
-        </GestureHandlerRootView>
+        <>
+            <QueryClientProvider client={client}>
+                <AuthProvider>
+                    <GestureHandlerRootView style={{ flex: 1 }}>
+                        <BottomSheetModalProvider>
+                            <Stack screenOptions={{headerShown: false}}>
+                                <Stack.Screen name="index" />
+                                <Stack.Screen name="condition-generale" />
+                                <Stack.Screen name="(auth)" />
+                                <Stack.Screen name="(tabs)" />
+                                <Stack.Screen name="(conge)" />
+                            </Stack>
+                        </BottomSheetModalProvider>
+                    </GestureHandlerRootView>
+                </AuthProvider>
+            </QueryClientProvider>
+            <Toast 
+                config={toastConfig}
+                visibilityTime={3000}
+            />
+        </>
     );
 }

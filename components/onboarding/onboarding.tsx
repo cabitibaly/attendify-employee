@@ -30,7 +30,7 @@ const Onboarding = ({setViewedOnboarding}: Props) => {
             
             try {
                 await AsyncStorage.setItem("@viewedOnboarding", "true");
-                setViewedOnboarding(true);
+                setViewedOnboarding(true);                
             } catch (error) {
                 console.log("Error @setItem ", error);
             }

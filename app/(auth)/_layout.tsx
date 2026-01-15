@@ -4,7 +4,7 @@ import React from 'react'
 const AuthLayout = () => {
     return (
         <Stack>
-            <Stack.Screen name="connexion" options={{headerShown: false}} />
+            <Stack.Screen name="index" options={{headerShown: false}} />
             <Stack.Screen name="nouveau-mot-de-passe" options={{headerShown: false}} />
         </Stack>
     )

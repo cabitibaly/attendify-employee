@@ -4,46 +4,67 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { ImageBackground } from "react-native";
+import ConditionGenerale from "./condition-generale";
 
 export default function Index() {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [viewedOnbording, setViewedOnboarding] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [viewedOnbording, setViewedOnboarding] = useState<boolean>(false);
+    const [accepterCondidions, setAccepterConditions] = useState<boolean>(false);
 
-  const checkOnboarding = async () => {
-    try {
+    const checkOnboarding = async () => {
+        try {
 
-      const value = await AsyncStorage.getItem("@viewedOnboarding");
+            const [viewed, accepted] = await Promise.all([
+                AsyncStorage.getItem("@viewedOnboarding"),
+                AsyncStorage.getItem("@accepterLesConditions"),
+            ]);
 
-      if(value !== null) {
-        setViewedOnboarding(true);
-      }
+            if (viewed !== null) {
+                setViewedOnboarding(true);
+            }
 
-    } catch (error) {
-      console.log("Error @checkOnboarding ", error);
-    } finally {
-      setLoading(false);
-    }    
-  }
+            if (accepted !== null) {
+                setAccepterConditions(true);
+            }
 
-  useEffect(() => {
-    checkOnboarding();
-  }, [])
+        } catch (error) {
+            console.log("Error @checkOnboarding ", error);
+        } finally {
+            setLoading(false);
+        }    
+    }
 
-  useEffect(() => {
+    useEffect(() => {
+        checkOnboarding();
+    }, [])
 
-    if(!loading && viewedOnbording) {      
-      router.replace("/condition-generale")      
-    }    
+    useEffect(() => {
 
-  }, [loading, viewedOnbording])  
+        if(!loading && viewedOnbording && accepterCondidions) {
+            router.replace("/(auth)")      
+        }                  
 
-  return (
-    <ImageBackground
-      source={require("../assets/images/splash-bg.jpg")}
-      resizeMode="cover"
-      className="flex-1"
-    >
-      {loading ? <Loading /> : viewedOnbording ? "" : <Onboarding setViewedOnboarding={setViewedOnboarding} />}
-    </ImageBackground>
-  );
+    }, [loading, viewedOnbording, accepterCondidions])
+
+    if (!loading && viewedOnbording && accepterCondidions) {
+        return(
+            <ImageBackground
+                source={require("../assets/images/splash-bg.jpg")}
+                resizeMode="cover"
+                className="flex-1 bg-turquoise-2"
+            >
+                <Loading />
+            </ImageBackground>
+        );
+    }
+
+    return (
+        <ImageBackground
+            source={require("../assets/images/splash-bg.jpg")}
+            resizeMode="cover"
+            className="flex-1 bg-turquoise-2"
+        >
+            {loading ? <Loading /> : viewedOnbording && !accepterCondidions ? <ConditionGenerale /> : <Onboarding setViewedOnboarding={setViewedOnboarding} />}
+        </ImageBackground>
+    );
 }
