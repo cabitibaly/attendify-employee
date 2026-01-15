@@ -40,17 +40,17 @@ const LocationPermission = ({ onClose }: NotificationPermissionProps) => {
             style={{ paddingBottom: 16 }}
         >
             <View className='w-full flex-col items-center justify-between gap-6'>
-                <View className='size-20 bg-violet-8 rounded-full items-center justify-center'>
+                <View className='size-20 bg-turquoise-8 rounded-full items-center justify-center'>
                     <LocationIcon size={28} color="#EEEEF0" />
                 </View>
                 <View className='w-full flex-col items-center justify-center gap-4'>
                     <Text className='text-gris-1 text-3xl text-center font-bold'>Activer la localisation</Text>
                     <Text className='text-gris-1 text-xl text-center font-normal'>
-                        Autorisez Attendify à acceder à votre position. Il sera utilisé lors de l&apos;enregistrement de vos sites.
+                        Autorisez Attendify à acceder à votre position. Il sera utilisé pour vérifier si vous êtes sur site.
                     </Text>
                 </View>
                 <View className='w-full flex-col items-center justify-center gap-1'>
-                    <TouchableOpacity onPress={handleAllow} activeOpacity={0.8} className="p-4 w-full rounded-full bg-violet-8 items-center justify-center">
+                    <TouchableOpacity onPress={handleAllow} activeOpacity={0.8} className="p-4 w-full rounded-full bg-turquoise-8 items-center justify-center">
                         <Text className="text-gris-12 text-xl font-medium">Autoriser</Text>
                     </TouchableOpacity>               
                     <TouchableOpacity onPress={onClose} activeOpacity={0.8} className="p-4 w-full rounded-full bg-transparent items-center justify-center">

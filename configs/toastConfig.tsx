@@ -114,7 +114,7 @@ const toastConfig = {
         </View>
     ),
     success: ({ text1, text2 }: CustomToastProps) => (
-        <View style={{width: "93%", backgroundColor: "rgba(117, 65, 205, 0.9)", borderRadius: 12}} className="flex-col items-start justify-start gap-2 p-4">
+        <View style={{width: "93%", backgroundColor: "rgba(48, 207, 208, 1)", borderRadius: 12}} className="flex-col items-start justify-start gap-2 p-4">
             <View
                 style={{
                     width: "100%",

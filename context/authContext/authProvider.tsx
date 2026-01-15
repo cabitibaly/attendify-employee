@@ -57,7 +57,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         setUtilisateur(null)
         setIsAuthenticated(false)
-        removeTokens()
+        removeTokens()        
 
         Toast.show({
             type: 'success',

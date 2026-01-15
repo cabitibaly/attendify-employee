@@ -64,7 +64,7 @@ const ImagePicker = ({image, setImage}: FileUpdoaldProps) => {
                         </Text>
                 }            
             </TouchableOpacity>
-            <View className='absolute bottom-0 right-4 size-6 bg-violet-8 rounded-2xl items-center justify-center'>
+            <View style={{backgroundColor: "#005758"}} className='absolute bottom-0 right-4 size-6 rounded-2xl items-center justify-center'>
                 <Camera strokeWidth={2.5} size={14} color={"#EEEEF0"} />
             </View>
         </View>

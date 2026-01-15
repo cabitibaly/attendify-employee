@@ -41,7 +41,7 @@ const NotificationPermission = ({ onClose }: NotificationPermissionProps) => {
             style={{ paddingBottom: 16 }}
         >
             <View className='w-full flex-col items-center justify-between gap-6'>
-                <View className='size-20 bg-violet-8 rounded-full items-center justify-center'>
+                <View className='size-20 bg-turquoise-8 rounded-full items-center justify-center'>
                     <BellIcon size={28} color="#EEEEF0" />
                 </View>
                 <View className='w-full flex-col items-center justify-center gap-4'>
@@ -51,7 +51,7 @@ const NotificationPermission = ({ onClose }: NotificationPermissionProps) => {
                     </Text>
                 </View>
                 <View className='w-full flex-col items-center justify-center gap-1'>
-                    <TouchableOpacity onPress={handleAllow} activeOpacity={0.8} className="p-4 w-full rounded-full bg-violet-8 items-center justify-center">
+                    <TouchableOpacity onPress={handleAllow} activeOpacity={0.8} className="p-4 w-full rounded-full bg-turquoise-8 items-center justify-center">
                         <Text className="text-gris-12 text-xl font-medium">Autoriser</Text>
                     </TouchableOpacity>               
                     <TouchableOpacity onPress={onClose} activeOpacity={0.8} className="p-4 w-full rounded-full bg-transparent items-center justify-center">
