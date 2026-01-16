@@ -45,7 +45,8 @@ const NouveauConge = () => {
                     dateRetour: new Date(dateRetour).toISOString(),
                     raison,
                     typeConge,
-                    pieceJointe: urlFile || "",
+                    pieceJointe: pieceJointe?.name || "",
+                    PieceJointeURL: urlFile || "",
                 }
             })
 

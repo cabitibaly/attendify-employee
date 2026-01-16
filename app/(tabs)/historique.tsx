@@ -8,7 +8,7 @@ import { FlatList, RefreshControl, Text, View } from 'react-native';
 
 const Historique = () => {
     const [selected, setSelected] = useState<string>(new Date().toISOString().split('T')[0]); 
-    const { pointages, isFetchingNextPage, isLoading, refetch }  = useFetchPointage(selected == "", new Date(selected).toISOString());    
+    const { pointages, isFetchingNextPage, handleLoadMore, isLoading, refetch }  = useFetchPointage(selected == "", new Date(selected).toISOString());    
 
     return (
         <View className="px-4 py-4 pt-24 flex-1 gap-4 items-center" >
@@ -29,6 +29,7 @@ const Historique = () => {
                                 contentContainerStyle={{paddingBottom: 88}}
                                 ListFooterComponent={<RenderFooter isFetchingNextPage={isFetchingNextPage} />}
                                 ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+                                onEndReached={handleLoadMore}
                                 showsVerticalScrollIndicator={false}
                                 initialNumToRender={10}
                                 maxToRenderPerBatch={10}

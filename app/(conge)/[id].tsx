@@ -2,13 +2,28 @@ import Loading from '@/components/loading/loading';
 import CalendarIcon2 from '@/components/svg/calendarIcon2';
 import PDFIcon from '@/components/svg/pdfIcon';
 import { useFetchConge } from '@/hooks/conge/useFetchConge';
+import { downloadFile } from '@/utils/dowloadFile';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import React from 'react';
-import { ImageBackground, ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, ImageBackground, ScrollView, Text, View } from 'react-native';
+import { RefreshControl } from 'react-native-gesture-handler';
 
 const CongeDetail = () => {
     const { id } = useLocalSearchParams();
-    const { conge, isLoading } = useFetchConge(Number(id))
+    const { conge, isLoading, refetch } = useFetchConge(Number(id))
+    const [size, setSize] = useState<number | null>(null);
+    const [isLoadingPdf, setIsLoadingPdf] = useState<boolean>(false);
+
+    useEffect(() => {
+
+        (async () => {
+            if (conge?.pieceJointe) {
+                const fileSize = await downloadFile(conge.pieceJointeURL, setIsLoadingPdf);
+                setSize(fileSize);
+            }
+        })()
+
+    }, [conge])    
 
     return (
          <ImageBackground
@@ -24,6 +39,12 @@ const CongeDetail = () => {
                         <ScrollView 
                             showsVerticalScrollIndicator={false}  
                             contentContainerStyle={{ gap: 32 }}
+                            refreshControl={
+                                <RefreshControl 
+                                    refreshing={isLoading} 
+                                    onRefresh={refetch} 
+                                />
+                            }
                         >
                             <View className='w-full flex-col items-start justify-start gap-2'>
                                 <Text className='text-xl text-gris-11 font-medium'>Durée</Text>
@@ -56,13 +77,20 @@ const CongeDetail = () => {
                             <View className='w-full flex-col items-start justify-start gap-2'>
                                 <Text className='text-xl text-gris-11 font-regular'>Pièce jointe</Text>
                                 {
-                                    conge?.pieceJointe ?
+                                    conge?.pieceJointe ?                                        
                                         <View className='p-3 rounded-xl bg-turquoise-5/50 w-full flex-row items-center justify-start gap-2'>
-                                            <PDFIcon />
-                                            <View className='flex-col items-start justify-start gap-0'>
-                                                <Text className='text-base text-gris-12 font-regukar line-clamp-1'>{conge?.pieceJointe}</Text>
-                                                <Text className='text-base text-gris-8 font-medium'>1.1 MB</Text>
-                                            </View>
+                                            {  
+                                                isLoadingPdf ? 
+                                                    <ActivityIndicator size={24} color="#EEEEF0" />
+                                                    :
+                                                    <>
+                                                        <PDFIcon />
+                                                        <View className='flex-col items-start justify-start gap-0'>
+                                                            <Text className='text-base text-gris-12 font-regukar line-clamp-1'>{conge?.pieceJointe}</Text>
+                                                            <Text className='text-base text-gris-8 font-medium'>{size && `${(size / (1024 * 1024)).toFixed(2)} MB`}</Text>
+                                                        </View>
+                                                    </>
+                                            }
                                         </View>
                                         :
                                         <Text className='text-xl text-gris-12 font-medium'>{"-"}</Text>                   

@@ -5,16 +5,12 @@ import { FilterIcon } from '@/components/svg/filterIcon'
 import { useAuth } from '@/hooks/auth/useAuth'
 import { useFetchListConges } from '@/hooks/conge/useFetchConge'
 import { router } from 'expo-router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FlatList, ImageBackground, Pressable, RefreshControl, Text, TouchableOpacity, View } from 'react-native'
 
 const CongeListe = () => {
     const { utilisateur } = useAuth()
     const { conges, isLoading, isFetchingNextPage, handleLoadMore, refetch } = useFetchListConges()
-    
-    useEffect(() => {
-        refetch()
-    }, [])
 
     return (
         <ImageBackground
@@ -56,6 +52,7 @@ const CongeListe = () => {
                                     contentContainerStyle={{paddingBottom: 88}}
                                     ListFooterComponent={<RenderFooter isFetchingNextPage={isFetchingNextPage} />}
                                     ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+                                    onEndReached={handleLoadMore}
                                     showsVerticalScrollIndicator={false}
                                     initialNumToRender={10}
                                     maxToRenderPerBatch={10}

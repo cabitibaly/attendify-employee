@@ -4,6 +4,7 @@ export interface Conge {
     dateRetour: string
     raison: string
     typeConge: string
-    pieceJointe: string
+    pieceJointe: string    
+    pieceJointeURL: string    
     statutConge: string
 }

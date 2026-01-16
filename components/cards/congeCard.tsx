@@ -49,7 +49,7 @@ const CongeCard = ({ conge }: CongeCardProps) => {
     }
 
     return (
-        <TouchableOpacity onPress={() => router.push("/(conge)/2")} activeOpacity={0.9} className='p-4 w-full bg-turquoise-5/30 rounded-xl flex-row items-center justify-between'>
+        <TouchableOpacity onPress={() => router.push(`/(conge)/${conge.id}`)} activeOpacity={0.9} className='p-4 w-full bg-turquoise-5/30 rounded-xl flex-row items-center justify-between'>
             <View className='flex-col items-start justify-start gap-2'>
                 <Text className='text-gris-8 text-xl font-semibold'>Date</Text>
                 <Text className='text-gris-12 text-2xl font-semibold'>{new Date(conge.dateDepart).toLocaleDateString('fr-FR', {month: 'short', day: 'numeric' })} - {new Date(conge.dateRetour).toLocaleDateString('fr-FR', { month: 'short', day: 'numeric' })}</Text>
