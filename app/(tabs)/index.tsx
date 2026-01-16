@@ -98,7 +98,7 @@ const Accueil = () => {
                         <HandPointerIcon size={96} />
                         <Text className='text-3xl text-white font-medium'>
                             {
-                                pointages.length === 0 ? "Arrivée" : "Départ"
+                                pointages.length === 0 ? "Arrivée" : pointages[0]?.depart == null ? "Départ" : "Terminer"
                             }
                         </Text>
                     </LinearGradient>
@@ -141,12 +141,10 @@ const Accueil = () => {
                 </View>
             </View>
             <PointageModal
-                arrive={pointages.length === 0 } 
-                depart={pointages.length === 1 && !pointages[0].depart}
-                terminer={pointages.length === 1 && !!pointages[0].depart}
                 visible={modalVisible} 
                 latitude={latitude}
                 longitude={longitude}
+                pointage={pointages[0] || null}
                 onClose={() => setModalVisible(false)} 
                 reftech={refetch}
             />

@@ -1,3 +1,4 @@
+import { Pointage } from '@/interface/pointage'
 import DEV_API_URL from '@/utils/api'
 import { authenticatedRequest } from '@/utils/authUtils'
 import { X } from 'lucide-react-native'
@@ -8,12 +9,10 @@ import LoginIcon from '../svg/loginIcon'
 import LogoutIcon from '../svg/logoutIcon'
 
 interface PointageModalProps {
-    arrive: boolean
-    depart: boolean
-    terminer: boolean
     visible: boolean
     latitude: number | null
     longitude: number | null
+    pointage: Pointage | null
     onClose: () => void
     reftech: () => void
 }
@@ -23,7 +22,7 @@ interface RequestResponse {
     status: number, 
 }
 
-const PointageModal = ({ arrive, depart, terminer, visible, latitude, longitude, onClose, reftech }: PointageModalProps) => {
+const PointageModal = ({ visible, latitude, longitude, pointage, onClose, reftech }: PointageModalProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleArrive = async () => {
@@ -69,7 +68,7 @@ const PointageModal = ({ arrive, depart, terminer, visible, latitude, longitude,
     }
 
     const handleClick = async () => { 
-        if (terminer) {
+        if (pointage?.depart) {
             Toast.show({
                 type: 'info',
                 text1: 'Pointage',
@@ -81,12 +80,12 @@ const PointageModal = ({ arrive, depart, terminer, visible, latitude, longitude,
         setIsLoading(true)
 
         try {
-            if (arrive) {
+            if (pointage === null) {
                 await handleArrive()
                 return
             }
 
-            if (depart) {
+            if (pointage?.arrive != null && pointage?.depart === null) {
                 await handleDepart()
                 return
             }
@@ -96,14 +95,14 @@ const PointageModal = ({ arrive, depart, terminer, visible, latitude, longitude,
             console.log("Erreur lors du pointage:", error)
         } finally {
             setIsLoading(false)
-        }
+        }        
     }
 
     return (
         <Modal
             animationType='slide'
             transparent={true}
-            visible={visible}            
+            visible={visible && pointage?.depart == null}
         >
             <View className='px-4 pb-6 bg-gris-2/50 flex-1 items-center justify-end'>
                 <View className='bg-gris-12 px-6 pb-6 pt-20 w-full rounded-[48px] flex-col items-center justify-center gap-7'>
@@ -113,12 +112,12 @@ const PointageModal = ({ arrive, depart, terminer, visible, latitude, longitude,
                     <View className='flex-col gap-4 items-center justify-center'>
                         <View className='size-[60px] rounded-full bg-turquoise-8/30 items-center justify-center'>
                             {
-                                arrive ? <LogoutIcon color='#008384' size={24} /> : <LoginIcon color='#008384' size={24} />
+                                pointage?.arrive == null ? <LogoutIcon color='#008384' size={24} /> : <LoginIcon color='#008384' size={24} />
                             }                         
                         </View>
                         <View className='flex-col gap-1 items-center justify-center'>
-                            <Text className='text-gris-1 text-2xl font-medium'>Pointage {arrive ? "arrivée" : "départ"}</Text>
-                            <Text className='text-gris-8 text-xl font-medium'>Êtes vous sûr de vouloir {arrive ? "pointer" : "partir"} ?</Text>
+                            <Text className='text-gris-1 text-2xl font-medium'>Pointage {pointage?.arrive == null ? "arrivée" : "départ"}</Text>
+                            <Text className='text-gris-8 text-xl font-medium'>Êtes vous sûr de vouloir {pointage?.arrive == null ? "pointer" : "partir"} ?</Text>
                         </View>                        
                     </View> 
                     <View className='w-full flex-col items-center justify-center gap-4'>
