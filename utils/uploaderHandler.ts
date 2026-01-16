@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosProgressEvent } from "axios";
 import * as DocumentPicker from 'expo-document-picker';
 import Toast from "react-native-toast-message";
  
@@ -21,7 +21,11 @@ const getImageType = (fileName: string): string => {
     return mimeTypes[extension || ''] || 'image/jpeg';
 };
 
-export const uploadHandler = async (file: DocumentPicker.DocumentPickerAsset | null | string): Promise<string> => {
+export const uploadHandler = async (
+    file: DocumentPicker.DocumentPickerAsset | null | string, 
+    isPdf: boolean = false,
+    onProgress?: (progress: number) => void
+): Promise<string> => {
     if (!file) {
         Toast.show({
             type: 'error',
@@ -39,12 +43,12 @@ export const uploadHandler = async (file: DocumentPicker.DocumentPickerAsset | n
         "file", 
         {
             uri: file.uri,
-            type: file.mimeType || getImageType(file.name || ""),
+            type: file.mimeType || (isPdf ? "application/pdf" : getImageType(file.name)),
             name: file.name || "image.jpg",
         } as unknown as Blob
     );
 
-    formData.append("folder", "images/");
+    formData.append("folder", `${isPdf ? "pdfs" : "images"}/`);
 
     if (!CLOUD_NAME || !UPLOAD_PRESET) {
         throw new Error("CLOUD_NAME ou UPLOAD_PRESET est manquant dans .env");
@@ -55,16 +59,24 @@ export const uploadHandler = async (file: DocumentPicker.DocumentPickerAsset | n
 
     try {        
         const res = await axios.post(
-            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${isPdf ? "raw" : "image"}/upload`,
             formData,
-            {headers: {"Content-Type": "multipart/form-data"}}
+            {
+                headers: {"Content-Type": "multipart/form-data"},
+                onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+                    if (!progressEvent.total) return
+
+                    const progress = Math.round((progressEvent.loaded / progressEvent.total!) * 100);
+                    onProgress?.(progress);
+                }
+            }
         );
 
         if (res.status === 200) {
             Toast.show({
                 type: 'success',
                 text1: 'Upload',
-                text2: "Image uploadée",
+                text2: `${isPdf ? "PDF" : "Image"} uploadée`,
             })
             return res.data.secure_url as string;
         }
@@ -78,6 +90,7 @@ export const uploadHandler = async (file: DocumentPicker.DocumentPickerAsset | n
             text1: 'Erreur',
             text2: "Une erreur est survenue lors de l'upload de l'image",
         })
+        onProgress?.(0);
         return "";
     }
 };

@@ -1,7 +1,8 @@
+import { uploadHandler } from '@/utils/uploaderHandler';
 import * as DocumentPicker from 'expo-document-picker';
 import { FileUp, X } from 'lucide-react-native';
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import PDFIcon from '../svg/pdfIcon';
 
 interface FileUpdoaldProps {
@@ -10,6 +11,8 @@ interface FileUpdoaldProps {
 }
 
 const FileUpdoald = ({file, setFile}: FileUpdoaldProps) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [progess, setProgess] = useState<number>(0);
 
     const pickFile = async () => {
         const result = await DocumentPicker.getDocumentAsync({
@@ -20,11 +23,24 @@ const FileUpdoald = ({file, setFile}: FileUpdoaldProps) => {
 
         if (!result.canceled) {
             setFile(result.assets[0]);
+            setProgess(0);
         }
     }
 
     const removeFile = () => {
         setFile(null);
+        setProgess(0);
+    }
+
+    const televerser = async () => {   
+        setIsLoading(true)
+        
+        try {
+            const urlFile = await uploadHandler(file, true, setProgess);            
+        } catch (error) {
+            console.log("une erreur est survenue:", error)
+        } finally {setIsLoading(false)}
+        
     }
 
     return (
@@ -61,12 +77,15 @@ const FileUpdoald = ({file, setFile}: FileUpdoaldProps) => {
                                 <X strokeWidth={1.5} size={28} color='#FF1474' />
                             </TouchableOpacity>   
                         </View>
-                        <View style={{borderRadius: 10}} className='bg-gris-11 w-full h-2'>
-                            <View className='bg-vert h-full' style={{width: "30%", borderRadius: 10}} />
+                        <View style={{borderRadius: 10}} className='overflow-hidden bg-gris-11 w-full h-2'>
+                            <View className='bg-vert h-full' style={{width: `${progess}%`, borderRadius: 10,}} />
                         </View>                             
                     </View>
-                    <TouchableOpacity activeOpacity={0.8} className='p-2.5 rounded-full bg-turquoise-7 w-full items-center justify-center'>
-                        <Text className='text-xl text-gris-12 font-medium'>Téléverser</Text>
+                    <TouchableOpacity onPress={televerser} disabled={isLoading} activeOpacity={0.8} className='p-2.5 rounded-full bg-turquoise-7 w-full items-center justify-center'>
+                        {
+                            isLoading ?
+                            <ActivityIndicator size={24} color="#EEEEF0" /> : <Text className='text-xl text-gris-12 font-medium'>Téléverser</Text>
+                        }                        
                     </TouchableOpacity>
                 </>
             }

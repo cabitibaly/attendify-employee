@@ -6,12 +6,4 @@ export interface Conge {
     typeConge: string
     pieceJointe: string
     statutConge: string
-    utilisateur: UtilisateurConge
-}
-
-export interface UtilisateurConge {
-    nom: string
-    prenom: string
-    image: string
-    poste: string
 }
