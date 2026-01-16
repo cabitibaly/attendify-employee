@@ -84,13 +84,13 @@ const Profile = () => {
                 ref={editBottomSheetRef}
                 onClose={() => console.log('Fermé')}
             >
-                <ModifierSonCompte />
+                <ModifierSonCompte onClose={() => editBottomSheetRef.current?.close()} />
             </CustomBottomSheet>
             <CustomBottomSheet 
                 ref={pwdBottomSheetRef}
                 onClose={() => console.log('Fermé')}
             >
-                <ModifierSonMP />
+                <ModifierSonMP onClose={() => pwdBottomSheetRef.current?.close()} />
             </CustomBottomSheet>
         </View>
     )
