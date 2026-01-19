@@ -2,24 +2,26 @@ import Loading from '@/components/loading/loading';
 import CalendarIcon2 from '@/components/svg/calendarIcon2';
 import PDFIcon from '@/components/svg/pdfIcon';
 import { useFetchConge } from '@/hooks/conge/useFetchConge';
-import { downloadFile } from '@/utils/dowloadFile';
+import { downloadAndGetFileSize, openFile } from '@/utils/dowloadFile';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ImageBackground, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { RefreshControl } from 'react-native-gesture-handler';
 
 const CongeDetail = () => {
     const { id } = useLocalSearchParams();
     const { conge, isLoading, refetch } = useFetchConge(Number(id))
     const [size, setSize] = useState<number | null>(null);
+    const [uri, setUri] = useState<string | null>(null);
     const [isLoadingPdf, setIsLoadingPdf] = useState<boolean>(false);
 
     useEffect(() => {
 
         (async () => {
             if (conge?.pieceJointe) {
-                const fileSize = await downloadFile(conge.pieceJointeURL, setIsLoadingPdf);
-                setSize(fileSize);
+                const result = await downloadAndGetFileSize(conge.pieceJointeURL, setIsLoadingPdf);
+                setSize(result?.size!);
+                setUri(result?.uri!);
             }
         })()
 
@@ -78,7 +80,12 @@ const CongeDetail = () => {
                                 <Text className='text-xl text-gris-11 font-regular'>Pièce jointe</Text>
                                 {
                                     conge?.pieceJointe ?                                        
-                                        <View className='p-3 rounded-xl bg-turquoise-5/50 w-full flex-row items-center justify-start gap-2'>
+                                        <TouchableOpacity 
+                                            onPress={async() => await openFile(uri as string)} 
+                                            disabled={isLoading} 
+                                            activeOpacity={0.8} 
+                                            className='p-3 rounded-xl bg-turquoise-5/50 w-full flex-row items-center justify-start gap-2'
+                                        >
                                             {  
                                                 isLoadingPdf ? 
                                                     <ActivityIndicator size={24} color="#EEEEF0" />
@@ -91,7 +98,7 @@ const CongeDetail = () => {
                                                         </View>
                                                     </>
                                             }
-                                        </View>
+                                        </TouchableOpacity>
                                         :
                                         <Text className='text-xl text-gris-12 font-medium'>{"-"}</Text>                   
                                 }
