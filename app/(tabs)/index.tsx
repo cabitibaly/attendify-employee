@@ -7,6 +7,7 @@ import LoginIcon from '@/components/svg/loginIcon';
 import LogoutIcon from '@/components/svg/logoutIcon';
 import MapPin from '@/components/svg/mapPin';
 import { useAuth } from '@/hooks/auth/useAuth';
+import { usePushNotification } from '@/hooks/notification-push/usePushNotification';
 import { useFetchMaPosition, useFetchPointage } from '@/hooks/pointage/useFetchPointage';
 import decimalToTime from '@/utils/decimalToTime';
 import { checkLocationPermission } from '@/utils/location';
@@ -26,6 +27,7 @@ const Accueil = () => {
     const { pointages, refetch } = useFetchPointage(true)
     const { utilisateur } = useAuth()    
     const { data } = useFetchMaPosition(latitude, longitude)
+    const { expoPushToken, enregistrerPushToken } = usePushNotification();
 
     useEffect(() => {        
         (async () => {
@@ -45,6 +47,7 @@ const Accueil = () => {
             }
 
         })();
+              
     }, []);
 
     useEffect(() => {
@@ -72,6 +75,14 @@ const Accueil = () => {
         }
 
     }, [])
+
+    useEffect(() => {
+
+        if (expoPushToken) {
+            enregistrerPushToken(expoPushToken);
+        }        
+
+    }, [expoPushToken])
 
     return (
         <View className="px-4 py-4 flex-1 items-center justify-center" >

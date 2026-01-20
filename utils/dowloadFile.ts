@@ -92,7 +92,7 @@ export const openFile = async (uri: string): Promise<void> => {
     if (!file.exists) return
 
     if (Platform.OS === "ios") {
-        await Sharing.shareAsync(file.uri);
+        // await Sharing.shareAsync(file.uri);
         return;
     }
 

@@ -2,6 +2,7 @@
   "expo": {
     "name": "employee",
     "slug": "employee",
+    "owner": "bcalex1",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -55,7 +56,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f46c653b-65a5-431a-983b-20f6a4b080f6"
+        "projectId": "a70e778e-ba24-4959-ad41-8013fce6b1c2"
       }
     }
   }

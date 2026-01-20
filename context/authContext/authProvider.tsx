@@ -1,3 +1,4 @@
+import { usePushNotification } from "@/hooks/notification-push/usePushNotification"
 import { LoginData, ResponseLoginData, Utilisateur } from "@/interface/utilisateur"
 import DEV_API_URL from "@/utils/api"
 import { authenticatedRequest, getToken, getUserInformations, removeTokens, setTokens } from "@/utils/authUtils"
@@ -9,7 +10,8 @@ import AuthContext from "./authContext"
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [utilisateur, setUtilisateur] = useState<Utilisateur | null | undefined>(null)
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)           
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+    const { expoPushToken, supprimerPushToken } = usePushNotification();
 
     const { isLoading, refetch } = useQuery({
         queryKey: ['utilisateur'],
@@ -47,6 +49,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const logout = async (): Promise<void> => {
         const refresh_token = await getToken("REFRESH")
 
+        await supprimerPushToken(expoPushToken);
+
         const data = await authenticatedRequest<{status: number, message: string}>({
             url: `${DEV_API_URL}/auth/deconnexion`,
             method: 'POST',
@@ -57,7 +61,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         setUtilisateur(null)
         setIsAuthenticated(false)
-        removeTokens()        
+        removeTokens()               
 
         Toast.show({
             type: 'success',

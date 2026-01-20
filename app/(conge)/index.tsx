@@ -1,12 +1,11 @@
 import CongeCard from '@/components/cards/congeCard'
 import RenderFooter from '@/components/footer/renderFooter'
 import Loading from '@/components/loading/loading'
-import { FilterIcon } from '@/components/svg/filterIcon'
 import { useAuth } from '@/hooks/auth/useAuth'
 import { useFetchListConges } from '@/hooks/conge/useFetchConge'
 import { router } from 'expo-router'
 import React from 'react'
-import { FlatList, ImageBackground, Pressable, RefreshControl, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ImageBackground, RefreshControl, Text, TouchableOpacity, View } from 'react-native'
 
 const CongeListe = () => {
     const { utilisateur } = useAuth()
@@ -30,10 +29,6 @@ const CongeListe = () => {
             </View>
             <View className='w-full flex-row items-center justify-between'>
                 <Text className='text-gris-12 text-xl font-medium'>Historique des congés</Text>
-                <Pressable  className='border border-turquoise-9 p-1 rounded-lg flex-row items-center justify-center gap-1.5'>
-                    <FilterIcon size={20} color='#30CFD0' />
-                    <Text className='text-gris-12 text-base font-medium'>Filtre</Text>
-                </Pressable>
             </View>
             <View className='w-full flex-col gap-4 items-center'>
                 {
