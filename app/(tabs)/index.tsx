@@ -65,14 +65,14 @@ const Accueil = () => {
                 },
                 (location) => {
                     setLatitude(location.coords.latitude)
-                    setLongitude(location.coords.longitude)
+                    setLongitude(location.coords.longitude)                    
                 }
             )
         })()
 
         return () => {
-            subscription.remove()
-        }
+            subscription?.remove()
+        }        
 
     }, [])
 
