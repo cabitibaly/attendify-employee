@@ -1,5 +1,6 @@
 import toastConfig from "@/configs/toastConfig";
 import AuthProvider from "@/context/authContext/authProvider";
+import OnboardingProvider from "@/context/onboarding/onboardingProvider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
@@ -48,19 +49,20 @@ export default function RootLayout() {
     return (
         <>
             <QueryClientProvider client={client}>
-                <AuthProvider>
-                    <GestureHandlerRootView style={{ flex: 1 }}>
-                        <BottomSheetModalProvider>
-                            <Stack screenOptions={{headerShown: false}}>
-                                <Stack.Screen name="index" />
-                                <Stack.Screen name="condition-generale" />
-                                <Stack.Screen name="(auth)" />
-                                <Stack.Screen name="(tabs)" />
-                                <Stack.Screen name="(conge)" />
-                            </Stack>
-                        </BottomSheetModalProvider>
-                    </GestureHandlerRootView>
-                </AuthProvider>
+                <OnboardingProvider>
+                    <AuthProvider>
+                        <GestureHandlerRootView style={{ flex: 1 }}>
+                            <BottomSheetModalProvider>
+                                <Stack screenOptions={{headerShown: false}}>
+                                    <Stack.Screen name="index" />                                    
+                                    <Stack.Screen name="(auth)" />
+                                    <Stack.Screen name="(tabs)" />
+                                    <Stack.Screen name="(conge)" />
+                                </Stack>
+                            </BottomSheetModalProvider>
+                        </GestureHandlerRootView>
+                    </AuthProvider>
+                </OnboardingProvider>
             </QueryClientProvider>
             <Toast 
                 config={toastConfig}

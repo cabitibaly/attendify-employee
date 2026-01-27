@@ -1,4 +1,5 @@
 import { usePushNotification } from "@/hooks/notification-push/usePushNotification"
+import { useOnboarding } from "@/hooks/onboarding/useOnboarding"
 import { LoginData, ResponseLoginData, Utilisateur } from "@/interface/utilisateur"
 import DEV_API_URL from "@/utils/api"
 import { authenticatedRequest, getToken, getUserInformations, removeTokens, setTokens } from "@/utils/authUtils"
@@ -12,11 +13,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [utilisateur, setUtilisateur] = useState<Utilisateur | null | undefined>(null)
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
     const { expoPushToken, supprimerPushToken } = usePushNotification();
+    const { accepterCondidions, viewedOnbording } = useOnboarding();
 
     const { isLoading, refetch } = useQuery({
         queryKey: ['utilisateur'],
         queryFn:  async () => await getUserInformations(setUtilisateur, setIsAuthenticated),
         staleTime: 60 * 60 * 1000,
+        enabled: accepterCondidions && viewedOnbording,
     })
 
     const login = async (loginData: LoginData): Promise<void> => {         
