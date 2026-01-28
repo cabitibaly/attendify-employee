@@ -82,7 +82,7 @@ const Accueil = () => {
             enregistrerPushToken(expoPushToken);
         }        
 
-    }, [expoPushToken])
+    }, [expoPushToken])    
 
     return (
         <View className="px-4 py-4 flex-1 items-center justify-center" >
