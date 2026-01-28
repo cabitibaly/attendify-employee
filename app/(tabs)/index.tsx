@@ -94,7 +94,7 @@ const Accueil = () => {
                 <View className='overflow-hidden size-20 rounded-full items-center justify-center bg-turquoise-8'>
                     {
                         utilisateur?.image ?
-                            <Image className='size-full' source={require("../../assets/images/Dear-Santa.jpeg")} />
+                            <Image className='size-full' source={{uri: utilisateur.image}} />
                             : 
                             <Text className='text-3xl text-gris-12 font-bold'>{utilisateur?.nom.charAt(0)}</Text>
                     }                    
