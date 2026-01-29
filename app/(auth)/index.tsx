@@ -1,7 +1,9 @@
 import Loading from '@/components/loading/loading';
+import EyeIcon from '@/components/svg/eyeIcon';
+import EyeOffIcon from '@/components/svg/eyeOffIcon';
 import { useAuth } from '@/hooks/auth/useAuth';
 import React, { useState } from 'react';
-import { ActivityIndicator, ImageBackground, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ImageBackground, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from 'react-native-toast-message';
 
@@ -9,6 +11,7 @@ const Index = () => {
     const [username, setUsername] = useState<string>('')
     const [motDePasse, setMotDePasse] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [show, setShow] = useState<boolean>(true);
     const { login, isLoading: isAuthenticating } = useAuth();
 
     const handleConnexion = async () => {
@@ -72,7 +75,12 @@ const Index = () => {
                     </View>
                     <View className='w-full flex-col items-start justify-center gap-2'>
                         <Text className='text-base text-gris-12 font-medium'>Mot de passe</Text>
-                        <TextInput value={motDePasse} onChangeText={setMotDePasse} secureTextEntry className='w-full bg-turquoise-5 px-4 py-4 rounded-2xl text-xl text-gris-12' placeholderTextColor={"#5F606A"} placeholder='Mot de passe' />
+                        <View className="px-4 bg-turquoise-5 rounded-2xl w-full flex-row items-center justify-between gap-2">
+                            <TextInput value={motDePasse} onChangeText={setMotDePasse} secureTextEntry={show} className='flex-1 py-4 rounded-2xl text-xl text-gris-12' placeholderTextColor={"#5F606A"} placeholder='Mot de passe' />
+                            <Pressable onPress={() => setShow(!show)}>
+                                { show ? <EyeIcon size={28} color="#B2B3BD" /> : <EyeOffIcon size={28} color="#B2B3BD" /> }
+                            </Pressable>
+                        </View>                        
                     </View>                    
                 </View>
                 <TouchableOpacity 

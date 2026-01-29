@@ -20,6 +20,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Accueil = () => {
     const [modalVisible, setModalVisible] = useState<boolean>(false)
+    const [locationGranted, setLocationGranted] = useState<boolean>(false);
     const [latitude, setLatitude] = useState<number | null>(null);
     const [longitude, setLongitude] = useState<number | null>(null);
     const notifBottomSheetRef = useRef<CustomBottomSheetRef>(null);
@@ -41,6 +42,7 @@ const Accueil = () => {
 
             const locationAsked = await hasPermissionBeenAsked('LOCATION_PERMISSION_kEY');
             const locationGranted = await checkLocationPermission();
+            setLocationGranted(locationGranted);
 
             if (!locationAsked && !locationGranted) {
                 setTimeout(() => locationBottomSheetRef.current?.open(), 500);
@@ -74,7 +76,7 @@ const Accueil = () => {
             subscription?.remove()
         }        
 
-    }, [])
+    }, [locationGranted])
 
     useEffect(() => {
 
@@ -175,6 +177,7 @@ const Accueil = () => {
             >   
                 <LocationPermission 
                     onClose={ () => {locationBottomSheetRef.current?.close()}}
+                    setLocationGranted={setLocationGranted}
                 />
             </CustomBottomSheet>
         </View>

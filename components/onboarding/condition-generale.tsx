@@ -194,7 +194,7 @@ const ConditionGenerale = () => {
                                         </View>                      
                                     </View>
                                     <Text className='text-left text-gris-12 text-base font-regurlar'>
-                                        Toute demande peut être adressée à l’éditeur via l’adresse suivante : 📩 dearsanta@jiyuu.com
+                                        Toute demande peut être adressée à l’éditeur via l’adresse suivante : 📩 jiyuulab@gmail.com
                                     </Text>                      
                                 </View>
                                 <View className="mt-6 flex-col w-full gap-4">                        
@@ -244,7 +244,7 @@ const ConditionGenerale = () => {
                             </ScrollView>
                         </View> 
                         <View className='p-4'>
-                            <TouchableOpacity onPress={accepterLesConditions} disabled={!finScroll} activeOpacity={0.6} style={{backgroundColor: `${finScroll ? "#008384" : "#005758"}`}} className='py-4 px-8 rounded-2xl items-center justify-center'>
+                            <TouchableOpacity onPress={accepterLesConditions} disabled={!finScroll} activeOpacity={0.6} style={{backgroundColor: `${finScroll ? "#008384" : "#003B3C"}`}} className='py-4 px-8 rounded-2xl items-center justify-center'>
                                 <Text className='text-xl text-gris-12 font-semibold'>
                                     J&apos;accepte
                                 </Text>

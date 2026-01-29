@@ -8,9 +8,10 @@ import LocationIcon from '../svg/locationIcon';
 
 interface NotificationPermissionProps {
     onClose: () => void;
+    setLocationGranted: (granted: boolean) => void;
 }
 
-const LocationPermission = ({ onClose }: NotificationPermissionProps) => {
+const LocationPermission = ({ onClose, setLocationGranted }: NotificationPermissionProps) => {
     
     const handleAllow = async () => {
         const granted = await requestLocationPermission()
@@ -24,6 +25,8 @@ const LocationPermission = ({ onClose }: NotificationPermissionProps) => {
                 text1: 'Autorisation',
                 text2: `Vous avez autorisé Attendify à accéder à votre position.`,
             });
+
+            setLocationGranted(true);
             
         } else {
             Toast.show({
