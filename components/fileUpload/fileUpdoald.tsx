@@ -66,9 +66,9 @@ const FileUpdoald = ({file, setFile}: FileUpdoaldProps) => {
                 <>
                     <View className='p-3 rounded-xl bg-turquoise-6/80 w-full flex-col items-center justify-center gap-3'>
                         <View className='w-full flex-row items-center justify-between gap-2'>
-                            <View className='flex-row items-center justify-start gap-2'>
+                            <View className='flex-1 flex-row items-center justify-start gap-2'>
                                 <PDFIcon />
-                                <View className='flex-col items-start justify-start gap-0'>
+                                <View className='w-5/6 flex-col items-start justify-start gap-0'>
                                     <Text className='text-base text-gris-12 font-regukar line-clamp-1'>{file.name}</Text>
                                     <Text className='text-base text-gris-10 font-medium'>{file.size && (file.size / (1024 * 1024)).toFixed(2)} MB</Text>
                                 </View>
