@@ -2,7 +2,7 @@
   "expo": {
     "name": "Attendify",
     "slug": "employee",
-    "owner": "bcalex1",
+    "owner": "bcalex2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/Icon_emp_1024.png",
@@ -51,7 +51,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a70e778e-ba24-4959-ad41-8013fce6b1c2"
+        "projectId": "d53e082c-d347-49a4-ad43-51d8ff837fc9"
       }
     }
   }
