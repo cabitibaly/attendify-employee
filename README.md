@@ -1,50 +1,124 @@
-# Welcome to your Expo app 👋
+# 📋 Attendify Employee
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile de gestion des présences destinée aux employés, développée avec **React Native** et **Expo**.
 
-## Get started
+---
 
-1. Install dependencies
+## ✨ Fonctionnalités
 
-   ```bash
-   npm install
-   ```
+- 📅 Consultation du calendrier de présences
+- 📄 Sélection et téléversement de documents
+- 🔔 Retours haptiques pour une meilleure expérience utilisateur
+- 🎨 Interface moderne avec NativeWind (Tailwind CSS pour React Native)
+- 🗂️ Navigation par onglets et routing basé sur les fichiers (Expo Router)
+- 💾 Stockage local avec AsyncStorage
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🛠️ Stack technique
 
-In the output, you'll find options to open the app in a
+| Technologie | Version |
+|---|---|
+| React Native | 0.81.5 |
+| Expo | ~54.0.x |
+| Expo Router | ~6.0.x |
+| TypeScript | ~5.9.x |
+| NativeWind | ^4.2.x |
+| Tailwind CSS | ^3.4.x |
+| React Native Reanimated | ~4.1.x |
+| React Native Calendars | ^1.13.x |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📁 Structure du projet
 
-## Get a fresh project
+```
+attendify-employee/
+├── app/             # Écrans et routes (file-based routing Expo Router)
+├── components/      # Composants réutilisables
+├── assets/          # Images, polices et ressources statiques
+├── data/            # Données locales / mock data
+├── interface/       # Types TypeScript et interfaces
+├── global.css       # Styles globaux (NativeWind / Tailwind)
+├── app.json         # Configuration Expo
+└── tailwind.config.js
+```
 
-When you're ready, run:
+---
+
+## 🚀 Démarrage rapide
+
+### Prérequis
+
+- [Node.js](https://nodejs.org/) >= 18
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+- [Expo Go](https://expo.dev/go) sur votre appareil mobile (optionnel)
+
+### Installation
+
+```bash
+git clone https://github.com/cabitibaly/attendify-employee.git
+cd attendify-employee
+npm install
+```
+
+### Lancer l'application
+
+```bash
+npx expo start
+```
+
+Choisissez ensuite votre environnement d'exécution :
+
+| Option | Commande |
+|---|---|
+| Android (émulateur) | `npm run android` |
+| iOS (simulateur) | `npm run ios` |
+| Web | `npm run web` |
+| Expo Go (scan QR) | `npx expo start` |
+
+---
+
+## 🧹 Réinitialiser le projet
+
+Pour repartir d'une base vierge :
 
 ```bash
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+> Le code de démarrage sera déplacé dans `app-example/` et un répertoire `app/` vide sera créé.
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🔍 Linting
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm run lint
+```
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 📦 Principales dépendances
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **[@gorhom/bottom-sheet](https://github.com/gorhom/react-native-bottom-sheet)** — Feuilles modales animées
+- **[lucide-react-native](https://lucide.dev/)** — Icônes vectorielles
+- **[react-native-calendars](https://github.com/wix/react-native-calendars)** — Composant calendrier
+- **[expo-document-picker](https://docs.expo.dev/versions/latest/sdk/document-picker/)** — Sélection de fichiers
+- **[expo-haptics](https://docs.expo.dev/versions/latest/sdk/haptics/)** — Retours haptiques
+- **[@react-native-async-storage/async-storage](https://react-native-async-storage.github.io/async-storage/)** — Persistance locale
+
+---
+
+## 📚 Ressources utiles
+
+- [Documentation Expo](https://docs.expo.dev/)
+- [Expo Router — File-based routing](https://docs.expo.dev/router/introduction/)
+- [NativeWind](https://www.nativewind.dev/)
+- [Communauté Expo sur Discord](https://chat.expo.dev)
+
+---
+
+## Auteur
+ 
+**cabitibaly** — [GitHub](https://github.com/cabitibaly)
