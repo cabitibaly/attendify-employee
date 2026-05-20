@@ -1,16 +1,68 @@
 import DatePicker from '@/components/datepicker/datePicker';
 import Dropdown from '@/components/dropdown/dropdown';
 import FileUpdoald from '@/components/fileUpload/fileUpdoald';
+import DEV_API_URL from '@/utils/api';
+import { authenticatedRequest } from '@/utils/authUtils';
+import { uploadHandler } from '@/utils/uploaderHandler';
 import * as DocumentPicker from 'expo-document-picker';
 import React, { useState } from 'react';
-import { ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+
+interface RequestResponse {
+    message: string,
+    status: number, 
+}
 
 const NouveauConge = () => {
     const [dateDepart, setDateDepart] = useState<string>('');
     const [dateRetour, setDateRetour] = useState<string>('');
     const [typeConge, setTypeConge] = useState<string>('');
     const [raison, setRaison] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [pieceJointe, setPieceJointe] = useState<DocumentPicker.DocumentPickerAsset | null>(null);
+    const [fileUrl, setFileUrl] = useState<string>("");
+
+    const faireUneDemande = async () => {
+        if (!dateDepart || !dateRetour || !typeConge || !raison) {
+            Toast.show({
+                type: 'error',
+                text1: 'Erreur',
+                text2: "Veuillez remplir tous les champs",
+            })
+            return;
+        }
+
+        setIsLoading(true)
+        
+        try {
+            const urlFile = pieceJointe ? await uploadHandler(pieceJointe) : null;
+            const data = await authenticatedRequest<RequestResponse>({
+                url: `${DEV_API_URL}/conge/faire-une-demande`,
+                method: 'POST',
+                data: {
+                    dateDepart: new Date(dateDepart).toISOString(),
+                    dateRetour: new Date(dateRetour).toISOString(),
+                    raison,
+                    typeConge,
+                    pieceJointe: pieceJointe?.name || "",
+                    PieceJointeURL: urlFile || "",
+                }
+            })
+
+            if (data?.status === 201) {
+                Toast.show({
+                    type: 'success',
+                    text1: 'Demande',
+                    text2: data.message,
+                })
+            }            
+        } catch (error) {
+            console.log("une erreur est survenue:", error)
+        } finally {setIsLoading(false)}        
+        
+    }
+    
 
     return (
         <ImageBackground
@@ -53,8 +105,16 @@ const NouveauConge = () => {
                     <FileUpdoald file={pieceJointe} setFile={setPieceJointe} />
                 </View>
             </ScrollView>
-            <TouchableOpacity activeOpacity={0.8} className='mb-4  px-4 py-5 w-[93%] rounded-full bg-turquoise-8/70 items-center justify-center'>
-                <Text className='text-xl text-gris-12 font-medium'>Soumettre la demande</Text>    
+            <TouchableOpacity
+                onPress={faireUneDemande}
+                disabled={isLoading}
+                activeOpacity={0.8} 
+                className='mb-4  px-4 py-5 w-[93%] rounded-full bg-turquoise-8/70 items-center justify-center'
+            >
+                {
+                    isLoading ?
+                        <ActivityIndicator size={24} color="#EEEEF0" /> : <Text className='text-xl text-gris-12 font-medium'>Soumettre la demande</Text>
+                }                  
             </TouchableOpacity>
         </ImageBackground>
     )

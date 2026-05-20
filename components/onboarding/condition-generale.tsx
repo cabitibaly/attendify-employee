@@ -3,10 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { router } from 'expo-router'
 import { Dot } from 'lucide-react-native'
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
-const Index = () => { 
+const ConditionGenerale = () => { 
     const [finScroll, setFinScroll] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     const [accepterCondidions, setAccepterConditions] = useState<boolean>(false);
@@ -21,7 +20,8 @@ const Index = () => {
     const accepterLesConditions = async () => {
         try {
             await AsyncStorage.setItem("@accepterLesConditions", "true");  
-            setAccepterConditions(true)          
+            setAccepterConditions(true) 
+            router.replace("/(auth)")
         } catch (error) {
             console.log("Error @accepterLesConditions ", error);
         }
@@ -47,22 +47,18 @@ const Index = () => {
     useEffect(() => {       
 
         if(!loading && accepterCondidions) {
-            router.replace("/(auth)/connexion")      
+            router.replace("/(auth)")      
         }
 
     }, [accepterCondidions, loading])
 
     return (
-        <SafeAreaView className='flex-1 bg-turquoise-2'>
+        <View className='flex-1'>
             {   loading ? 
                     <Loading /> 
                 :
                     <>
-                        <ImageBackground
-                            source={require("../assets/images/splash-bg.jpg")}
-                            resizeMode="cover"
-                            className="flex-1"
-                        >
+                        <View className="pt-10 flex-1">
                             <View className='p-4'>
                                 <Text style={{fontSize: 24}} className='text-gris-12 font-medium'>
                                     Politique de confidentialité
@@ -198,7 +194,7 @@ const Index = () => {
                                         </View>                      
                                     </View>
                                     <Text className='text-left text-gris-12 text-base font-regurlar'>
-                                        Toute demande peut être adressée à l’éditeur via l’adresse suivante : 📩 dearsanta@jiyuu.com
+                                        Toute demande peut être adressée à l’éditeur via l’adresse suivante : 📩 jiyuulab@gmail.com
                                     </Text>                      
                                 </View>
                                 <View className="mt-6 flex-col w-full gap-4">                        
@@ -246,9 +242,9 @@ const Index = () => {
                                     </Text>
                                 </View>
                             </ScrollView>
-                        </ImageBackground> 
+                        </View> 
                         <View className='p-4'>
-                            <TouchableOpacity onPress={accepterLesConditions} disabled={!finScroll} activeOpacity={0.6} style={{backgroundColor: `${finScroll ? "#008384" : "#005758"}`}} className='py-4 px-8 rounded-2xl items-center justify-center'>
+                            <TouchableOpacity onPress={accepterLesConditions} disabled={!finScroll} activeOpacity={0.6} style={{backgroundColor: `${finScroll ? "#008384" : "#003B3C"}`}} className='py-4 px-8 rounded-2xl items-center justify-center'>
                                 <Text className='text-xl text-gris-12 font-semibold'>
                                     J&apos;accepte
                                 </Text>
@@ -256,8 +252,8 @@ const Index = () => {
                         </View> 
                     </>
             }          
-        </SafeAreaView>
+        </View>
     )
 }
 
-export default Index
+export default ConditionGenerale

@@ -1,49 +1,37 @@
 import Loading from "@/components/loading/loading";
+import ConditionGenerale from "@/components/onboarding/condition-generale";
 import Onboarding from "@/components/onboarding/onboarding";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useOnboarding } from "@/hooks/onboarding/useOnboarding";
 import { ImageBackground } from "react-native";
 
 export default function Index() {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [viewedOnbording, setViewedOnboarding] = useState<boolean>(false);
+    const { accepterCondidions, loading, viewedOnbording, setViewedOnboarding } = useOnboarding();
 
-  const checkOnboarding = async () => {
-    try {
+    if (!loading && viewedOnbording && accepterCondidions) {
+        return(
+            <ImageBackground
+                source={require("../assets/images/splash-bg.jpg")}
+                resizeMode="cover"
+                className="flex-1 bg-turquoise-2"
+            >
+                <Loading />
+            </ImageBackground>
+        );
+    }
 
-      const value = await AsyncStorage.getItem("@viewedOnboarding");
+    return (
+        <ImageBackground
+            source={require("../assets/images/splash-bg.jpg")}
+            resizeMode="cover"
+            className="flex-1 bg-turquoise-2"
+        >
+            {!viewedOnbording && (
+                <Onboarding setViewedOnboarding={setViewedOnboarding} />
+            )}
 
-      if(value !== null) {
-        setViewedOnboarding(true);
-      }
-
-    } catch (error) {
-      console.log("Error @checkOnboarding ", error);
-    } finally {
-      setLoading(false);
-    }    
-  }
-
-  useEffect(() => {
-    checkOnboarding();
-  }, [])
-
-  useEffect(() => {
-
-    if(!loading && viewedOnbording) {      
-      router.replace("/condition-generale")      
-    }    
-
-  }, [loading, viewedOnbording])  
-
-  return (
-    <ImageBackground
-      source={require("../assets/images/splash-bg.jpg")}
-      resizeMode="cover"
-      className="flex-1"
-    >
-      {loading ? <Loading /> : viewedOnbording ? "" : <Onboarding setViewedOnboarding={setViewedOnboarding} />}
-    </ImageBackground>
-  );
+            {viewedOnbording && !accepterCondidions && (
+                <ConditionGenerale />
+            )}
+        </ImageBackground>
+    );
 }

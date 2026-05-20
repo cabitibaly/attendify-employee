@@ -17,7 +17,7 @@ const TabLayout = () => {
                 }}
             >
                 <Tabs.Screen 
-                    name="accueil" 
+                    name="index" 
                     options={{
                         headerShown: false,
                         title: "Accueil",

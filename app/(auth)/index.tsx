@@ -1,0 +1,102 @@
+import Loading from '@/components/loading/loading';
+import EyeIcon from '@/components/svg/eyeIcon';
+import EyeOffIcon from '@/components/svg/eyeOffIcon';
+import { useAuth } from '@/hooks/auth/useAuth';
+import React, { useState } from 'react';
+import { ActivityIndicator, ImageBackground, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Toast from 'react-native-toast-message';
+
+const Index = () => {
+    const [username, setUsername] = useState<string>('')
+    const [motDePasse, setMotDePasse] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [show, setShow] = useState<boolean>(true);
+    const { login, isLoading: isAuthenticating } = useAuth();
+
+    const handleConnexion = async () => {
+        if(username.length === 0 || motDePasse.length === 0) {
+            Toast.show({
+                type: 'error',
+                text1: 'Erreur',
+                text2: "Veuillez remplir tous les champs",
+            })
+            return
+        }
+
+        setIsLoading(true)
+
+        try {            
+            await login({
+                username,
+                motDePasse,
+            })
+        } catch (error) {
+            console.error("Erreur lors de la connexion:", error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    if (isAuthenticating && !username && !motDePasse) {
+        return (
+            <ImageBackground
+                source={require("../../assets/images/connexion-background.jpg")}
+                resizeMode="cover"
+                className="p-4 flex-1 items-center justify-center bg-turquoise-4"
+            >
+                <Loading />
+            </ImageBackground>
+        )
+    }
+
+    return (
+        <ImageBackground
+            source={require("../../assets/images/connexion-background.jpg")}
+            resizeMode="cover"
+            className="p-4 flex-1 items-center justify-center bg-turquoise-4"
+        >            
+            <KeyboardAwareScrollView
+                enableOnAndroid
+                keyboardShouldPersistTaps="handled"
+                style={{ flex: 1, width: '100%' }}
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 32,                    
+                }}
+            >
+                <Text className='text-4xl text-gris-12 font-bold'>Connecte-toi</Text>
+                <View className='w-full flex-col items-center justify-center gap-6'>
+                    <View className='w-full flex-col items-start justify-center gap-2'>
+                        <Text className='text-base text-gris-12 font-medium'>Email ou téléphone</Text>
+                        <TextInput value={username} onChangeText={setUsername} className='w-full bg-turquoise-5 px-4 py-4 rounded-2xl text-xl text-gris-12' placeholderTextColor={"#5F606A"} placeholder='Email ou numéro de téléphone' />
+                    </View>
+                    <View className='w-full flex-col items-start justify-center gap-2'>
+                        <Text className='text-base text-gris-12 font-medium'>Mot de passe</Text>
+                        <View className="px-4 bg-turquoise-5 rounded-2xl w-full flex-row items-center justify-between gap-2">
+                            <TextInput value={motDePasse} onChangeText={setMotDePasse} secureTextEntry={show} className='flex-1 py-4 rounded-2xl text-xl text-gris-12' placeholderTextColor={"#5F606A"} placeholder='Mot de passe' />
+                            <Pressable onPress={() => setShow(!show)}>
+                                { show ? <EyeIcon size={28} color="#B2B3BD" /> : <EyeOffIcon size={28} color="#B2B3BD" /> }
+                            </Pressable>
+                        </View>                        
+                    </View>                    
+                </View>
+                <TouchableOpacity 
+                    onPress={handleConnexion} 
+                    disabled={isLoading}
+                    activeOpacity={0.6} 
+                    className='bg-turquoise-8 w-full py-4 px-8 rounded-2xl items-center justify-center'
+                >
+                    {
+                        isLoading ? 
+                            <ActivityIndicator size={24} color="#EEEEF0" /> : <Text className='text-gris-12 text-xl font-semibold'>Se connecter</Text>
+                    }                    
+                </TouchableOpacity>
+            </KeyboardAwareScrollView>
+        </ImageBackground>
+    )
+}
+
+export default Index
